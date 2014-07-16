@@ -12,7 +12,6 @@ class Student
 
 	private
 
-
   	def define_method_for_has something
   		name = "has_#{something}?".to_sym
   		create_method called: name, which_should_return: true

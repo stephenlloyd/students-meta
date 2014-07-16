@@ -7,7 +7,7 @@ describe Student do
 	end
 	
 	it "can have badges awarded" do 
-		student.award "unixoid"
+		student.award :unixoid
 		expect(student).to have_unixoid
 	end
 end
