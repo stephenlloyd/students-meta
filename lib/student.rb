@@ -10,24 +10,21 @@ class Student
 		awards << badge
 	end	
 
-
 	private
 
-	def method_missing(method_sym)
-		if method_sym.to_s.match(/^has_.+?\?$/)
-			create_method method_sym, false
-			self.send(method_sym)
-		else
-      		super
-      	end
+
+  	def define_method_for_has something
+  		name = "has_#{something}?".to_sym
+  		create_method called: name, which_should_return: true
   	end
 
-  	def define_method_for_has method_name
-  		name = "has_#{method_name}?".to_sym
-  		create_method name, true
+  	def create_method(called: name, which_should_return: true, and_call: "nothing")
+  		self.class.send(:define_method, called) {which_should_return}
+  		self.send(called) unless and_call == "nothing"
   	end
 
-  	def create_method(name, value)
-  		self.class.send(:define_method, name) {value}
+  	def method_missing(name)
+	 	create_method called: name, which_should_return: false, and_call: "itself" if name.match(/^has_.+?\?$/)
+      	super unless name.match(/^has_.+?\?$/)
   	end
 end
