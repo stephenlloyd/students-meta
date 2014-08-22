@@ -15,8 +15,8 @@ class Student
   		create_method called: "has_#{something}?", which_should_return: true
   	end
 
-  	def create_method(called: name, which_should_return: true, and_call: "nothing")
-  		self.class.send(:define_method, called) {which_should_return}
+  	def create_method called: name, which_should_return: true, and_call: "nothing"
+  		self.class.send(:define_method, called){which_should_return}
   		self.send(called) unless and_call == "nothing"
   	end
 

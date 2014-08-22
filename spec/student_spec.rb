@@ -3,7 +3,7 @@ require 'student'
 describe Student do
 	let(:student){Student.new}
 	it "does not have an award" do 
-		expect(student).not_to have_unixoid
+		expect(student.has_unixoid?).to eq false
 	end
 	
 	it "can have badges awarded" do 
